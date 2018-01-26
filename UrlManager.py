@@ -1,6 +1,5 @@
 # -*- encoding=utf-8 -*-
 
-import types
 
 class UrlManager(object):
 
@@ -21,10 +20,40 @@ class UrlManager(object):
         :return: 
         """
         if urls is not None:
-            if type(urls) is types.StringTypes:
+            if isinstance(urls, str):
                 self.new_urls.add(urls)
-            elif types(urls) is types.ListType:
-                tmp_urls = urls  # type: list
+            elif isinstance(urls, list):
+                for url in urls:
+                    self.new_urls.add(url)
+            elif isinstance(urls, set):
+                self.new_urls.union(urls)
+            else:
+                pass
+
+    def get_new_url(self):
+        """
+        获取一个新的url
+        :rtype: str 
+        """
+        url = self.new_urls.pop()
+        self.old_urls.add(url)
+        return url
+
+    def get_new_url_size(self):
+        """
+        获取未爬取的大小
+        :return: 
+        """
+        return len(self.new_urls)
+
+    def get_old_url_size(self):
+        """
+        获取已经爬取的大小
+        :return: 
+        """
+        return len(self.old_urls)
+
+
 
 
 
