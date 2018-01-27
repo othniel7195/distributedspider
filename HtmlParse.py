@@ -2,16 +2,20 @@
 
 from bs4 import BeautifulSoup
 
+
 class HtmlParse(object):
 
-    def do_parser(self, url, html_cont):
+    def do_parser(self, html_cont):
         """
         解析html
-        :param url: 
         :param html_cont: 
-        :return: 
+        :rtype: (set, set)
         """
-        pass
+        soup = BeautifulSoup(html_cont, 'html.parser', from_encoding='utf-8')
+        new_urls = self._get_new_url(soup)
+        new_data = self._get_new_data(soup)
+
+        return new_urls, new_data
 
     def _get_new_url(self, soup):
         """

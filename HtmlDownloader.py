@@ -3,6 +3,7 @@
 import requests
 import json
 
+
 class HtmlDownload(object):
 
     def __init__(self):
@@ -12,11 +13,11 @@ class HtmlDownload(object):
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
             "Connection": "keep-alive",
             "Upgrade-Insecure-Requests": "1",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko)"
+            "Chrome / 63.0.3239.84 Safari / 537.36"
         }
 
-
-    def download_get(self, url, params):
+    def download_get(self, url, params=None):
         """
         下载html get 方式
         :param url: 
@@ -30,7 +31,6 @@ class HtmlDownload(object):
                 return r.text
             else:
                 return None
-
 
     def download_post(self, url, params):
         """

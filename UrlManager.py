@@ -4,15 +4,15 @@
 class UrlManager(object):
 
     def __init__(self):
-        self.new_urls = set()  # type: set
-        self.old_urls = set()
+        self.newUrls = set()  # type: set
+        self.oldUrls = set()
 
     def has_new_url(self):
         """
         判断是否有未爬取得url
         :rtype :bool
         """
-        return len(self.new_urls) != 0
+        return len(self.newUrls) != 0
 
     def add_new_urls(self, urls):
         """
@@ -21,12 +21,12 @@ class UrlManager(object):
         """
         if urls is not None:
             if isinstance(urls, str):
-                self.new_urls.add(urls)
+                self.newUrls.add(urls)
             elif isinstance(urls, list):
                 for url in urls:
-                    self.new_urls.add(url)
+                    self.newUrls.add(url)
             elif isinstance(urls, set):
-                self.new_urls.union(urls)
+                self.newUrls.union(urls)
             else:
                 pass
 
@@ -35,8 +35,8 @@ class UrlManager(object):
         获取一个新的url
         :rtype: str 
         """
-        url = self.new_urls.pop()
-        self.old_urls.add(url)
+        url = self.newUrls.pop()
+        self.oldUrls.add(url)
         return url
 
     def get_new_url_size(self):
@@ -44,14 +44,14 @@ class UrlManager(object):
         获取未爬取的大小
         :return: 
         """
-        return len(self.new_urls)
+        return len(self.newUrls)
 
     def get_old_url_size(self):
         """
         获取已经爬取的大小
         :return: 
         """
-        return len(self.old_urls)
+        return len(self.oldUrls)
 
 
 
