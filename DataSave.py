@@ -1,7 +1,5 @@
 # encoding:utf-8
 
-import codecs
-
 
 class DataSave(object):
 
@@ -11,25 +9,21 @@ class DataSave(object):
     def store_data(self, data):
 
         if data is not None:
-            self.datas.append(data)
+            self.datas += data
 
     def output_data(self):
         """
         输出数据
         :return: 
         """
-        fout = codecs.open('data.html', mode='w', encoding='utf-8')
-        fout.write('<html>')
-        fout.write('<body>')
-        fout.write('<table>')
         for data in self.datas:
-            fout.write('<tr>')
-            fout.write("<td> %s <td>" % data[''])
-            fout.write('<tr>')
-        fout.write('<table>')
-        fout.write('<body>')
-        fout.write('<html>')
-        fout.close()
+            time = data['time']
+            cation = data['cation']
+            money = data['money']
+            desc = data['describe']
+            print "%s\n%s\n%s\n%s\n\n\n" %(time, cation, money, desc)
+
+
 
 
 

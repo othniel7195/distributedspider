@@ -10,16 +10,16 @@ class SpiderManager(object):
 
     def __init__(self):
 
-        self.urlManager = UrlManager()
-        self.htmlParse = HtmlParse()
-        self.htmlDownload = HtmlDownloader()
-        self.dataSave = DataSave()
+        self.urlManager = UrlManager.UrlManager()
+        self.htmlParse = HtmlParse.HtmlParse()
+        self.htmlDownload = HtmlDownloader.HtmlDownload()
+        self.dataSave = DataSave.DataSave()
 
     def crawl(self, root_url):
         self.urlManager.add_new_urls(root_url)
 
         while(self.urlManager.has_new_url()
-              and self.urlManager.get_old_url_size() < 100):
+              and self.urlManager.get_old_url_size() < 10):
             """
             暂时只下载100个url
             """
@@ -40,7 +40,7 @@ class SpiderManager(object):
 
 if __name__ == '__main__':
     spiderManger = SpiderManager()
-    spiderManger.crawl("")
+    spiderManger.crawl("http://e.pingan.com/pa18shoplife/category/list.jsp")
 
 
 

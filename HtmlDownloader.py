@@ -25,7 +25,7 @@ class HtmlDownload(object):
         :rtype: str 
         """
         if url is not None:
-            r = requests.get(url=url, params=params, header=self.header)  # type :requests.Response
+            r = requests.get(url=url, params=params, headers=self.header)  # type :requests.Response
             if r.status_code == 200:
                 r.encoding = 'utf-8'
                 return r.text
