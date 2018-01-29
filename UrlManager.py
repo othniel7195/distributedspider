@@ -26,7 +26,8 @@ class UrlManager(object):
                 for url in urls:
                     self.newUrls.add(url)
             elif isinstance(urls, set):
-                self.newUrls.union(urls)
+                self.newUrls = self.newUrls.union(urls)
+
             else:
                 pass
 

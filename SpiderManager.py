@@ -21,11 +21,10 @@ class SpiderManager(object):
         while(self.urlManager.has_new_url()
               and self.urlManager.get_old_url_size() < 10):
             """
-            暂时只下载100个url
+            暂时只下载10个url
             """
             try:
                 new_url = self.urlManager.get_new_url()
-
                 cont = self.htmlDownload.download_get(new_url)
                 new_urls, new_data = self.htmlParse.do_parser(new_url, cont)
                 self.urlManager.add_new_urls(new_urls)

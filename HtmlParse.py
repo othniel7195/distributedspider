@@ -15,6 +15,8 @@ class HtmlParse(object):
         new_data = []
         soup = BeautifulSoup(html_cont, 'html.parser')
         tag1 = soup.find_all(id='itemContainer')
+        if len(tag1) <= 0:
+            return None, None
         for tag2 in tag1[0].find_all('a'):
             new_url = self._get_new_url(tag2)
             if new_url is not None:
@@ -32,9 +34,10 @@ class HtmlParse(object):
         :rtype: str 
         """
         tmp = '/pa18shoplife/details'
+        scheme = 'http://e.pingan.com'
         href = soup['href']
         if tmp in href:
-            return href
+            return scheme + href
 
     def _get_new_data(self, soup):
         """
