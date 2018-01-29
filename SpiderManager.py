@@ -6,6 +6,7 @@ import DataSave
 import HtmlParse
 
 
+
 class SpiderManager(object):
 
     def __init__(self):
