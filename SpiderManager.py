@@ -3,7 +3,7 @@
 import UrlManager
 import HtmlDownloader
 import DataSave
-import HtmlParse
+from HtmlParse import HtmlParse
 
 
 
@@ -12,7 +12,7 @@ class SpiderManager(object):
     def __init__(self):
 
         self.urlManager = UrlManager.UrlManager()
-        self.htmlParse = HtmlParse.HtmlParse()
+        self.htmlParse = HtmlParse()
         self.htmlDownload = HtmlDownloader.HtmlDownload()
         self.dataSave = DataSave.DataSave()
 

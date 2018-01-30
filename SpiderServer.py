@@ -3,7 +3,9 @@
 import Queue
 from multiprocessing.managers import BaseManager
 import UrlManager
+import DataSave
 import time
+from multiprocessing.process import Process
 
 class SpiderServer(object):
 
@@ -48,6 +50,61 @@ class SpiderServer(object):
                     url_manager.add_new_urls(urls)
             except BaseException, e:
                 time.sleep(0.1)
+
+
+    def result_proc(self):
+        while True:
+            try:
+                if not self.resultQueue.empty():
+                    content = self.resultQueue.get(True)
+                    print  "content: %s" % content
+                    if content['new_urls'] == 'END':
+                        print "接收到通知结束爬虫"
+                        self.storeQueue.put("END")
+                        return
+
+                    self.parseQueue.put(content['new_urls'])
+                    self.storeQueue.put(content['new_data'])
+                else:
+                    time.sleep(0.1)
+            except BaseException, e:
+                time.sleep(0.1)
+
+
+    def store_proc(self):
+        data_save = DataSave.DataSave()
+        while True:
+            try:
+                if not self.storeQueue.empty():
+                    data = self.storeQueue.get()
+                    if data == "END":
+                        print "存储进程结束"
+                        data_save.output_data()
+
+                        return
+                    data_save.store_data(data)
+                else:
+                    time.sleep(0.1)
+            except BaseException, e:
+                time.sleep(0.1)
+
+
+
+if __name__ == '__main__':
+    server = SpiderServer()
+    server_manager = server.start_server()
+    url_manager_proc = Process(target=server.url_manager_proc, args=('http://e.pingan.com/pa18shoplife/category/list.jsp',))
+    result_proc = Process(target=server.result_proc)
+    store_proc = Process(target=server.store_proc)
+    url_manager_proc.start()
+    result_proc.start()
+    store_proc.start()
+
+    server_manager.get_server().serve_forever()
+
+
+
+
 
 
 
